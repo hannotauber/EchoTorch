@@ -29,7 +29,6 @@ import torch
 
 # EchoTorch imports
 from echotorch.nn.linear.IncRRCell import IncRRCell
-from echotorch.nn.linear.IncForgRRCell import IncForgRRCell
 from echotorch.nn.conceptors.SPESNCell import SPESNCell
 from echotorch.nn.conceptors.IncSPESNCell import IncSPESNCell
 from echotorch.nn.conceptors.IncForgSPESNCell import IncForgSPESNCell
@@ -135,6 +134,8 @@ class IncSPESN(ESN):
                 dtype=dtype
             )
 
+            # circular dependency
+            from echotorch.nn.linear.IncForgRRCell import IncForgRRCell
             # Output layer
             self._output = IncForgRRCell(
                 input_dim=hidden_dim,

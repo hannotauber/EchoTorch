@@ -47,7 +47,7 @@ class TransformDataset(EchoDataset):
         target transformation to. Or None if applied directly.
         """
         # Call upper class
-        super(TransformDataset, self).__init__(*args, **kwargs)
+        super(TransformDataset, self).__init__(0, False, *args, **kwargs)
 
         # Properties
         self._root_dataset = root_dataset

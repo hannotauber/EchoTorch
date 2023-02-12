@@ -23,8 +23,10 @@
 # Imports
 import torch.utils.data
 import numpy as np
-import echotorch.nn as etnn
-import echotorch.datasets as etds
+from echotorch.models.reservoir.LiESN import LiESN as etnn_reservoir_LiESN
+from echotorch.nn.reservoir.DeepESN import DeepESN as etnn_reservoir_DeepESN
+from echotorch.data.datasets.TransformDataset import TransformDataset as etds_TransformDataset
+from echotorch.data.datasets.RandomSymbolDataset import RandomSymbolDataset as etds_RandomSymbolDataset
 import echotorch.transforms as ettr
 from echotorch.utils.matrix_generation import matrix_factory
 from torch.autograd import Variable
@@ -58,8 +60,8 @@ def evaluate_perturbations(n_layers, reservoir_size, w_connectivity, win_connect
     # Dataset generating sequences of random symbols
     if dataset is None:
         random_symbols_loader = torch.utils.data.DataLoader(
-            etds.TransformDataset(
-                root_dataset=etds.RandomSymbolDataset(
+            etds_TransformDataset(
+                root_dataset=etds_RandomSymbolDataset(
                     sample_len=sample_len,
                     n_samples=n_samples,
                     vocabulary_size=10
@@ -101,7 +103,7 @@ def evaluate_perturbations(n_layers, reservoir_size, w_connectivity, win_connect
 
     # Deep ESN / ESN
     if esn_type == 'esn':
-        esn_model = etnn.reservoir.LiESN(
+        esn_model = etnn_reservoir_LiESN(
             input_dim=vocabulary_size,
             hidden_dim=reservoir_size,
             output_dim=vocabulary_size,
@@ -113,7 +115,7 @@ def evaluate_perturbations(n_layers, reservoir_size, w_connectivity, win_connect
             dtype=dtype
         )
     else:
-        esn_model = etnn.reservoir.DeepESN(
+        esn_model = etnn_reservoir_DeepESN(
             n_layers=n_layers,
             input_dim=vocabulary_size,
             hidden_dim=reservoir_size,

@@ -23,7 +23,7 @@
 from .Conceptor import Conceptor
 from .ConceptorNet import ConceptorNet
 from .ConceptorSet import ConceptorSet
-from .IncConceptorNet import IncConceptorNet
+# from .IncConceptorNet import IncConceptorNet
 from .IncForgSPESNCell import IncForgSPESNCell
 from .IncSPESNCell import IncSPESNCell
 from echotorch.models.conceptors.SPESN import SPESN
